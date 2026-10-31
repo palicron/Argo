@@ -73,3 +73,29 @@ Plugins/**/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# --- Additions for Argo ---
+
+# IDEs
+.vscode/
+.idea/
+*.DotSettings.user
+*.pdb
+
+# Packaged builds
+Packaged/
+Releases/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Personal test content
+Content/Developers/
+
+# Claude Code (local context and settings)
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+.mcp.json
