@@ -39,8 +39,6 @@ This repo is also a before-and-after: the [original jam page](https://palicron.i
 - Subsystems for run state, waves, upgrades, save and analytics
 - Git LFS for binary assets (see `.gitattributes`)
 
-See [CONVENTIONS.md](CONVENTIONS.md) for folder layout and naming.
-
 ## Status
 
 In development, November 2026 (4-week plan):
