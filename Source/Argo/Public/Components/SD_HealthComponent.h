@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Definitions/DamageDefinitions.h"
 #include "SD_HealthComponent.generated.h"
 
 
@@ -13,16 +14,34 @@ class ARGO_API USD_HealthComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	// Sets default values for this component's properties
-	USD_HealthComponent();
 
-protected:
-	// Called when the game starts
+	USD_HealthComponent();
+	
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	UFUNCTION(BlueprintCallable)
+	FSD_DamageResult TakeDamage(const FSD_DamageDefinitions& DamageData);
+	
+protected:
+	
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	FSD_HealthConfig HealthConfig;
+	
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	float CurrentLife;
+	
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	float CurrentShield;
+	
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	uint8 bUsePresetAtStart : 1;
+	
+	FGameplayTag OwnerTeamTag;
+	
+	
 
-		
+	
+	
+
+
 };

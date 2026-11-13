@@ -6,12 +6,13 @@
 #include "GameFramework/Pawn.h"
 #include "Interface/SD_Damageable.h"
 #include "Interface/SD_HealthOwner.h"
+#include "Interface/SD_WeaponFireInterface.h"
 #include "SD_ShipBase.generated.h"
 
 class USD_ShipMovementComponent;
 
 UCLASS(Abstract)
-class ARGO_API ASD_ShipBase : public APawn, public ISD_Damageable, public ISD_HealthOwner
+class ARGO_API ASD_ShipBase : public APawn, public ISD_Damageable, public ISD_HealthOwner, public ISD_WeaponFireInterface
 {
 	GENERATED_BODY()
 
@@ -26,18 +27,35 @@ public:
 	
 	virtual USD_HealthComponent* GetHealthComponent_Implementation() const override;
 
+	//UFUNCTION(BlueprintCallable)
+	//virtual FGameplayTag GetTeamTag() const { return TeamTag; }
+	
+	virtual FVector GetMuzzleLocation_Implementation() override { return PrincipalMuzzleComponent->GetComponentLocation();};
+	
+	virtual FVector GetMuzzleForwardVector_Implementation() override {return PrincipalMuzzleComponent->GetForwardVector();};
+	
+	virtual FGameplayTag GetTeamTag_Implementation() override { return TeamTag; }
+	
+	
 protected:
+	
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Root")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Root")
 	TObjectPtr<USceneComponent> ShipRoot;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Mesh")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Mesh")
 	TObjectPtr<UStaticMeshComponent> ShipMesh;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Component")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Component")
 	TObjectPtr<USD_ShipMovementComponent> MovementComponent;
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Component")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Component")
 	TObjectPtr<USD_HealthComponent> HealthComponent;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Component")
+	TObjectPtr<USceneComponent> PrincipalMuzzleComponent;
+	
+	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite,Category=" Team")
+	FGameplayTag TeamTag;
 };

@@ -16,9 +16,16 @@ ASD_ShipBase::ASD_ShipBase()
 	ShipMesh = CreateDefaultSubobject<UStaticMeshComponent>("Ship Mesh");
 	ShipMesh->SetupAttachment(RootComponent);
 
-	MovementComponent = CreateDefaultSubobject<USD_ShipMovementComponent>("Ship Movement Component");
+	MovementComponent = CreateDefaultSubobject<USD_ShipMovementComponent>("Movement Component");
+	MovementComponent->bConstrainToPlane = true;
+	MovementComponent->SetPlaneConstraintAxisSetting(EPlaneConstraintAxisSetting::Z);  
+	MovementComponent->bSnapToPlaneAtStart = true;
+	MovementComponent->SetPlaneConstraintOrigin(FVector(0.f, 0.f, 20.f));  
 	
-	HealthComponent = CreateDefaultSubobject<USD_HealthComponent>("Ship Health Component");
+	HealthComponent = CreateDefaultSubobject<USD_HealthComponent>("Health Component");
+	
+	PrincipalMuzzleComponent = CreateDefaultSubobject<USceneComponent>("Principal Muzzle Component");
+	PrincipalMuzzleComponent->SetupAttachment(ShipMesh);
 }
 
 void ASD_ShipBase::BeginPlay()
@@ -32,7 +39,7 @@ void ASD_ShipBase::BeginPlay()
 
 FSD_DamageResult ASD_ShipBase::ApplyDamage_Implementation(FSD_DamageDefinitions Damage)
 {
-	return FSD_DamageResult();
+	return HealthComponent->TakeDamage(Damage);
 }
 
 USD_HealthComponent* ASD_ShipBase::GetHealthComponent_Implementation() const

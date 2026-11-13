@@ -19,6 +19,10 @@ class ARGO_API ISD_Damageable
 	GENERATED_BODY()
 	
 public:
+	
+	UFUNCTION(BlueprintNativeEvent,BlueprintCallable)
+	FGameplayTag GetTeamTag();
+	
 	UFUNCTION(BlueprintNativeEvent,BlueprintCallable)
 	FSD_DamageResult ApplyDamage(FSD_DamageDefinitions Damage);
 };

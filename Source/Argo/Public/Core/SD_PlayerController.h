@@ -19,12 +19,22 @@ public:
 	
 	ASD_PlayerController();
 	
-	virtual void BeginPlay() override;
-	
+	UFUNCTION(BlueprintCallable)
+	FVector GetAimDirection(const FVector& FireLocation) const;
 protected:
 	
 	UPROPERTY(EditAnywhere, Category ="Input|Input Mappings")
 	UInputMappingContext* DefaultMappingContexts;
+	
+	UPROPERTY(Transient)
+	FVector MouseWorldPoint;
+	
+	virtual void BeginPlay() override;
+	
+	virtual void Tick(float DeltaSeconds) override;
+	
+	UFUNCTION()
+	void UpdateGetMousePosition();
 	
 	UFUNCTION(blueprintCallable)
 	void BindMappingContext(UInputMappingContext* NewMapping, int32 NewMappingPriority);

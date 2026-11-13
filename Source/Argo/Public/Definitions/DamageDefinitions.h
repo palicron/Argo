@@ -46,3 +46,21 @@ struct FSD_DamageResult
 	FSD_DamageResult():TotalHealthDamageTaken(0.f),TotalShielDamageTaken(0.f),bBreaksShield(false),bKilled(false)
 	{}
 };
+
+USTRUCT(BlueprintType)
+struct FSD_HealthConfig
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float MaxHealth = 100.f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float MaxShield = 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float ShieldRegenDelay = 3.f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float ShieldRegenRate = 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float InvulnerabilityTime = 0.3f;
+};
+
